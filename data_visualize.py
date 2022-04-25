@@ -3,7 +3,6 @@ import pandas as pd
 
 import config
 import matplotlib.pyplot
-import seaborn as sns
 
 #iex as source, what is IEX again?
 #used for websocket connection - wss stands for web socket secure
@@ -24,12 +23,18 @@ timeframe = "1Day"
 start = "2021-01-01"
 end = "2021-01-30"
 # Retrieve daily bars for SPY in a dataframe and printing the first 5 rows
-spy_bars = api.get_bars(symbol, timeframe, start, end).df
-spy_bars.to_csv('market_data.csv')
-print("wrote market data")
+spy_bars = api.get_bars(symbol, timeframe, start, end)
+print(spy_bars)
+#spy_bars = api.get_trades('AAPL', '2020-01-25', '2020-01-30',5)
+print(spy_bars)
 
-matplotlib.pyplot.plot(spy_bars['high'])
-matplotlib.pyplot.show()
+
+# plot stock data
+# spy_bars.to_csv('market_data.csv')
+# print("wrote market data")
+#
+# matplotlib.pyplot.plot(spy_bars['high'])
+# matplotlib.pyplot.show()
 
 
 
