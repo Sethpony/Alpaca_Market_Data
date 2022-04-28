@@ -3,11 +3,11 @@ import pymysql
 connection = pymysql.connect(host='database-1.ck62t6bhkvok.us-east-2.rds.amazonaws.com', user='admin', password='Pass123!', database='test')
 
 with connection:
-    with connection.cursor() as cursor:
-        sql = "INSERT INTO test (`employee`, `password`) VALUES (%s, %s)"
-        cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
-    #why need to commit?
-    connection.commit()
+    # with connection.cursor() as cursor:
+    #     sql = "INSERT INTO test (`employee`, `password`) VALUES (%s, %s)"
+    #     cursor.execute(sql, ('webmaster@python.org', 'very-secret'))
+    # #why need to commit?
+    # connection.commit()
 
     with connection.cursor() as cursor:
         sql = "SELECT * FROM test"
