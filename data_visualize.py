@@ -3,7 +3,7 @@ import pandas as pd
 import config
 import matplotlib.pyplot
 import argparse
-import json
+from util import load_config
 
 # iex as source, what is IEX again?
 # used for websocket connection - wss stands for web socket secure
@@ -11,34 +11,25 @@ import json
 # run the program with parser
 # python data_visualize.py --config ./config_files/config_job_run.json
 
-parser = argparse.ArgumentParser(description='run get_bars for a symbol, timeframe, start, and end time')
-parser.add_argument('--config', action='store', nargs='+' , default=None,
-                    help='config file that lists all arguments we need for a run')
+#first create argument parser object, then enact on that object
+parser = argparse.ArgumentParser(description="retrieves arguments needed for using get_bars call from Alpaca Market Data API")
+parser.add_argument('--config', action='store', help='add input parameter for location of config file to run API call job')
+
 args = parser.parse_args()
-print(args)
-print(args.config[0])
+print(f'this the arguments that have been passed {args}')
+print(f'this is the arguments that have been passed: {args.config}')
 
-config_filename = args.config
+print(f'{load_config(args.config)}')
 
 
-# create load_conf method that creates a json object from the config.json file
-# def load_conf(config_filename):
-#     if ('.json' in config_filename):
-#         json_file = json.load(open(config_filename))
-#         return json_file
-#     else:
-#         print("not a valid json file")
-#
-#
-# if args.config is not None:
+conf = load_config(args.config)
+print(f'print conf:{conf}')
+keys = conf
 
-    # conf = load_conf(args.config)
-    # keys = conf.keys
-    #
-    # if('jobs' in keys):
-    #     for job in conf['jobs']:
-    #         print('run')
-    #         print(job)
+if('jobs' in keys):
+    for job in conf['jobs']:
+        print('run')
+        print(job)
 
 
 base_url = "wss://stream.data.alpaca.markets/v2/iex"
