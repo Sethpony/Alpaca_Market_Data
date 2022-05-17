@@ -14,18 +14,22 @@ from util import load_config
 # first create argument parser object, then enact on that object
 parser = argparse.ArgumentParser(
     description="retrieves arguments needed for using get_bars call from Alpaca Market Data API")
-parser.add_argument('--config', action='store',
+parser.add_argument('--config', action='store', nargs='+',
                     help='add input parameter for location of config file to run API call job')
 
 args = parser.parse_args()
 print(f'this the arguments that have been passed {args}')
 print(f'this is the arguments that have been passed: {args.config}')
 
-print(f'{load_config(args.config)}')
 
-conf = load_config(args.config)
+# print(f'args config 0 {args.config[0]}')
+print(f'{load_config(args.config[0])}')
+
+conf = load_config(args.config[0])
 print(f'print conf:{conf}')
 keys = conf
+
+#todo: update .json file by using the paramters
 
 #### start of API Calls ####
 base_url = "wss://stream.data.alpaca.markets/v2/iex"
@@ -37,6 +41,7 @@ APCA_API_SECRET_KEY = config.APCA_API_SECRET_KEY
 # create api object so we can make some calls
 api = tradeapi.REST(key_id=APCA_API_KEY_ID, secret_key=APCA_API_SECRET_KEY,
                     base_url=base_url, api_version='v2')
+
 
 if ('jobs' in keys):
     for job in conf['jobs']:
@@ -53,10 +58,10 @@ if ('jobs' in keys):
     # print(spy_bars)
     # spy_bars = api.get_bars(symbol, timeframe, start, end)
 
-symbol = "SPY"
-timeframe = "1Day"
-start = "2021-01-01"
-end = "2021-01-30"
+# symbol = "SPY"
+# timeframe = "1Day"
+# start = "2021-01-01"
+# end = "2021-01-30"
 # Retrieve daily bars for SPY in a dataframe and printing the first 5 rows
 #spy_bars = api.get_bars(symbol, timeframe, start, end)
 #print(spy_bars)

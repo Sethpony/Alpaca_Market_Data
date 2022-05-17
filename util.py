@@ -1,6 +1,6 @@
 import json
 
-
+#utility that loads a .json config file and returns a python dictionary of that file
 def load_config(filename):
     # open a json config file
     if '.json' in filename:
